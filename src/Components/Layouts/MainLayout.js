@@ -5,7 +5,7 @@ import Header from '../Widgets/Header/Header';
  const MainLayout = (props) => {
     return (
         <div>
-            <Header />
+            <Header {...props}/>
             <div className="container">
                 {props.children}
             </div>
