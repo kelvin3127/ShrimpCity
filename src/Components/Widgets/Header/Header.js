@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { connect } from 'react-redux'
 import './header.css'
 import { Link } from 'react-router-dom';
 import Logo from '../../../Assets/Img/Logo.png'
@@ -24,8 +24,8 @@ const Header = (props)  => {
                 </div>
 
                 {currentUser && (
-                    <div className="navbar justify-content-end ">
-                        <a className="nav-item m-3 navText">
+                    <div id="textColor" className="navbar justify-content-end ">
+                        <a className="m-3 navText ">
                             <span onClick={() => auth.signOut()}>
                                 Logout
                             </span>
@@ -56,4 +56,8 @@ Header.defaultProps = {
     currentUser: null
 }
 
-export default Header
+const mapStateToProps = ({ user }) => ({
+    currentUser: user.currentUser
+})
+
+export default connect(mapStateToProps, null)(Header);
