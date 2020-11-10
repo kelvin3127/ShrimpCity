@@ -4,8 +4,8 @@ import './footer.css'
  const Footer = (props) => {
     return (
         <div>
-            <footer class="footer">
-                <div class="container">
+            <footer className="footer">
+                <div className="container">
                     <p >
                         Copyright &copy; 2017 All Rights Reserved 
                     </p>

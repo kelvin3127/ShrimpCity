@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const FormInput = ({ HandleChange, label, ...otherProps}) => {
+const FormInput = ({ handleChange, label, ...otherProps}) => {
     return (
         <div className="container-fluid">
             <div className="col">
@@ -12,7 +12,7 @@ const FormInput = ({ HandleChange, label, ...otherProps}) => {
                         </label>
                     )}
                 </div>
-                <input className="formInput" onChange={HandleChange} {...otherProps} />
+                <input className="formInput" onChange={handleChange} {...otherProps} />
                 
             </div>
         </div>

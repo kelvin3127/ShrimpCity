@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
-import './emailpassword.css'
+import './resetpassword.css'
 
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import FormInput from '../Forms/FormInput/FormInput';
@@ -8,30 +8,18 @@ import Button from '../Forms/Button/Button';
 
 import { auth } from '../../../firebase/utils';
 
-const initialState = {
-    email: '',
-    errors: [],
-}
 
+const ResetPassword = (props) => {
 
-class EmailPassword extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ...initialState
-        }
+    const [email, setEmail] = useState('')
+    const [errors, setErrors] = useState([]);
 
-        this.handleChange = this.handleChange.bind(this);
+    const reset = () => {
+        setEmail('');
+        setErrors([]);
     }
 
-    handleChange(e) {
-        const { name, value } = e.target;
-        this.setState({
-            [name]: value
-        })
-    }
-
-    handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const config = {
@@ -39,18 +27,14 @@ class EmailPassword extends Component {
         }
 
         try {
-
-            const { email } = this.state
             
             await auth.sendPasswordResetEmail( email, config)
                 .then( () => {
-                    this.props.history.push("./login");
+                    props.history.push("./login");
                 })
                 .catch(() => {
                     const err = ['Email not found, Please try again.'];
-                    this.setState({
-                        errors: err
-                    })
+                    setErrors(err);
                 })
 
         } catch(err) {
@@ -58,10 +42,6 @@ class EmailPassword extends Component {
         }
     }
 
-
-
-    render() {
-        const { email, errors } = this.state;
 
         const configAuthWrapper = {
             headline: 'Reset Password'
@@ -82,14 +62,14 @@ class EmailPassword extends Component {
                         </div>
                     )}
 
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={handleSubmit}>
 
                         <FormInput
                             type="email"
                             name="email"
                             value={email}
                             placeholder="Email"
-                            onChange={this.handleChange}
+                            handleChange={ e => setEmail(e.target.value)}
                         />
 
                         <Button className="authBtn">
@@ -100,7 +80,7 @@ class EmailPassword extends Component {
                 </div>
             </AuthWrapper>
         )
-    }
+    
 }
 
-export default withRouter(EmailPassword);
+export default withRouter(ResetPassword);

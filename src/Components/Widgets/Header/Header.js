@@ -10,7 +10,7 @@ const Header = (props)  => {
     const { currentUser } = props;
 
     return (
-        <nav class="navbar bg-light ShrimpBanner dimmer">
+        <nav className="navbar bg-light ShrimpBanner dimmer">
             <div className="container-fluid ">
                 <div className="row">
                     <div className="col">
@@ -25,7 +25,12 @@ const Header = (props)  => {
 
                 {currentUser && (
                     <div id="textColor" className="navbar justify-content-end ">
-                        <a className="m-3 navText ">
+                        <div className="m-3 navText">
+                            <Link to="/dashboard">
+                                My Account
+                            </Link>
+                        </div>
+                        <a href="#" className="m-3 navText ">
                             <span onClick={() => auth.signOut()}>
                                 Logout
                             </span>
@@ -35,16 +40,16 @@ const Header = (props)  => {
 
                 {!currentUser && (
                     <div className="navbar justify-content-end">
-                        <a className="m-3 navText">
+                        <div className="m-3 navText">
                             <Link to="/registration">
                                 Register
                             </Link>
-                        </a>
-                        <a className="m-3 navText">
+                        </div>
+                        <div className="m-3 navText">
                             <Link to="/login">
                                 Login
                             </Link>
-                        </a>
+                        </div>
                     </div>
                 )}
             </div>
