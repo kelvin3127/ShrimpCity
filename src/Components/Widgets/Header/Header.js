@@ -10,8 +10,8 @@ const Header = (props)  => {
     const { currentUser } = props;
 
     return (
-        <nav class="navbar bg-light">
-            <div className="container-fluid ShrimpBanner">
+        <nav class="navbar bg-light ShrimpBanner dimmer">
+            <div className="container-fluid ">
                 <div className="row">
                     <div className="col">
                         <Link to="/">
@@ -19,36 +19,35 @@ const Header = (props)  => {
                         </Link>
                     </div>
                     <div className="col-8 mt-4">
-                        <p className="display-4">Shrimp City</p>
+                        <p className="display-4 Logo">Shrimp City</p>
                     </div>
                 </div>
-                
+
                 {currentUser && (
-                    <ul class="navbar nav justify-content-end ">
-                        <li class="nav-item m-3">
+                    <div className="navbar justify-content-end ">
+                        <a className="nav-item m-3 navText">
                             <span onClick={() => auth.signOut()}>
                                 Logout
                             </span>
-                        </li>
-                    </ul>
+                        </a>
+                    </div>
                 )}
 
                 {!currentUser && (
-                    <ul class="navbar nav justify-content-end ">
-                        <li class="nav-item m-3">
+                    <div className="navbar justify-content-end">
+                        <a className="m-3 navText">
                             <Link to="/registration">
                                 Register
                             </Link>
-                        </li>
-                        <li class="nav-item">
+                        </a>
+                        <a className="m-3 navText">
                             <Link to="/login">
                                 Login
                             </Link>
-                        </li>
-                    </ul>
+                        </a>
+                    </div>
                 )}
             </div>
-            
         </nav>
     )
 }
