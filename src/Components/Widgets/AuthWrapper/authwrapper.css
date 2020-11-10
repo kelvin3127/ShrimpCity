@@ -1,0 +1,29 @@
+
+.authWrapper {
+    width: 500px;
+    margin: auto;
+    text-align: center;
+    border: 1px solid;
+    
+}
+
+.authWrapper h2 {
+    font-size: 2.2rem;
+    line-height: 1;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    display: block;
+    width: 100%;
+    margin: 1.2rem auto;
+}
+
+
+.authBtn{
+
+    margin: 1rem auto;
+    width: 75%;
+    display: block;
+    padding: 0;
+    text-align: center;
+}

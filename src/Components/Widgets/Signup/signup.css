@@ -28,14 +28,6 @@ h2 {
     outline: none;
 }
 
-.RegisterBtn {
-    margin: 1rem auto;
-    width: 75%;
-    display: block;
-    padding: 0;
-    text-align: center;
-
-}
 
 .errMsg {
     

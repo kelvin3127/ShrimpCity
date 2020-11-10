@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Button from '../Forms/Button/Button'
 import './signin.css'
 import { signInWithGoogle, auth } from '../../../firebase/utils';
 
 import FormInput from '../Forms/FormInput/FormInput';
+import AuthWrapper from '../AuthWrapper/AuthWrapper';
 
 
 const initialState = {
@@ -49,14 +51,12 @@ class SignIn extends Component {
 
     const { email, password } = this.state;
 
+    const configAuthWrapper = {
+        headline: 'Login'
+    };
+
     return (
-        <div className="m-5">
-            <div className="formContainer">
-                <div className="m-3">
-                    <h2>
-                        Login
-                    </h2>
-                </div>
+            <AuthWrapper {...configAuthWrapper}>
                 <form onSubmit={this.handleSubmit}>
 
                     <FormInput
@@ -75,17 +75,24 @@ class SignIn extends Component {
                         onChange={this.handleChange}
                     />
 
-                    <Button  className="SigninBtn" type="submit">
+                    <Button  className="authBtn" type="submit">
                         Login
                     </Button>
 
-                    <Button onClick={signInWithGoogle} className="SigninBtn">
-                        Signin with Google
+                    <Button onClick={signInWithGoogle} className="authBtn">
+                        Login with Google
                     </Button>
 
+                    <div className="links">
+                        <Link to="/recovery">
+                            <Button className="authBtn">
+                                Reset Password
+                            </Button>
+                        </Link>
+                    </div>
+
                 </form>
-            </div>
-        </div>
+            </AuthWrapper>
         )   
     }
 }
