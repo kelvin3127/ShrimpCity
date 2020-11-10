@@ -1,17 +1,21 @@
 import React from 'react'
 import './header.css'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOutUserStart } from '../../../redux/User/user.actions'
 import { Link } from 'react-router-dom';
 import Logo from '../../../Assets/Img/Logo.png'
-import { auth } from '../../../firebase/utils'
 
 const mapState = ({ user }) => ({
     currentUser: user.currentUser
-})
+  });
 
 const Header = (props)  => {
-
+    const dispatch = useDispatch();
     const { currentUser } = useSelector(mapState);
+  
+    const signOut = () => {
+      dispatch(signOutUserStart());
+    };
 
     return (
         <nav className="navbar bg-light ShrimpBanner dimmer">
@@ -35,7 +39,7 @@ const Header = (props)  => {
                             </Link>
                         </div>
                         <a href="#" className="m-3 navText ">
-                            <span onClick={() => auth.signOut()}>
+                            <span onClick={() => signOut()}>
                                 Logout
                             </span>
                         </a>

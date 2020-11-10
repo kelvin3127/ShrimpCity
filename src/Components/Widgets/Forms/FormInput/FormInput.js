@@ -16,7 +16,7 @@ const FormInput = ({ handleChange, label, ...otherProps}) => {
                 
             </div>
         </div>
-    )
+    );
 }
 
 export default FormInput;

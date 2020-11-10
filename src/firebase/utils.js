@@ -9,32 +9,39 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
-GoogleProvider.setCustomParameters({ promt: "select_account"});
+GoogleProvider.setCustomParameters({ prompt: 'select_account' });
 
+export const handleUserProfile = async ({ userAuth, additionalData }) => {
+  if (!userAuth) return;
+  const { uid } = userAuth;
 
-// Takes userAuth and checks if it exist, if not make a new user to register it and return the userref to store info
-export const handleUserProfile = async (userAuth, additionalData) => {
-    if (!userAuth) return;
-    const { uid } = userAuth;
+  const userRef = firestore.doc(`users/${uid}`);
+  const snapshot = await userRef.get();
 
-    const userRef = firestore.doc(`users/${uid}`);
-    const snapshop = await userRef.get();
+  if (!snapshot.exists) {
+    const { displayName, email } = userAuth;
+    const timestamp = new Date();
 
-    if(!snapshop.exists) {
-        const { displayName, email } = userAuth;
-        const timestamp = new Date();
-
-        try {
-            await userRef.set({
-                displayName,
-                email,
-                createdDate: timestamp,
-                ...additionalData
-            });
-        } catch(err) {
-            //console.log(err);
-        }
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdDate: timestamp,
+        ...additionalData
+      });
+    } catch(err) {
+      // console.log(err);
     }
+  }
+  console.log(userRef, 1)
+  return userRef;
+};
 
-    return userRef;
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  })
 }

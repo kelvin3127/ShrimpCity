@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom'
-import { signInUser, signInWithGoogle, resetAllAuthForms } from '../../../redux/User/user.actions'
+import { Link, useHistory } from 'react-router-dom'
+import { emailSignInStart, googleSignInStart } from '../../../redux/User/user.actions'
 
 import './signin.css'
 
@@ -10,42 +10,41 @@ import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import Button from '../Forms/Button/Button'
 
 const mapState = ({ user }) => ({
-    signInSucess: user.signInSucess
-});
+    currentUser: user.currentUser
+  });
 
 const SignIn = (props) => {
-
-    const { signInSucess } = useSelector(mapState)
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { currentUser } = useSelector(mapState);
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('')
 
     useEffect(() => {
-        if (signInSucess) {
-            resetForm();
-            dispatch(resetAllAuthForms());
-            props.history.push('/');
+        if (currentUser) {
+          resetForm();
+          history.push('/');
         }
-    }, [signInSucess])
-
-    const resetForm = () => {
+    
+      }, [currentUser]);
+    
+      const resetForm = () => {
         setEmail('');
         setPassword('');
-    }
+      };
 
-    const handleSubmit = e => {
+      const handleSubmit = e => {
         e.preventDefault();
-        dispatch(signInUser({email, password}));
-
-    }
-
-    const handleGoogleSignIn = () => {
-        dispatch(signInWithGoogle());
-    }
-
-    const configAuthWrapper = {
-        headline: 'Login'
-    };
+        dispatch(emailSignInStart({ email, password }));
+      }
+    
+      const handleGoogleSignIn = () => {
+        dispatch(googleSignInStart());
+      }
+    
+      const configAuthWrapper = {
+        headline: 'LogIn'
+      };
 
     return (
             <AuthWrapper {...configAuthWrapper}>
@@ -88,4 +87,4 @@ const SignIn = (props) => {
         )   
 }
 
-export default withRouter(SignIn);
+export default SignIn;
