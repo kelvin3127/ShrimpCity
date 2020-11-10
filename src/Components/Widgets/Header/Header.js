@@ -1,13 +1,17 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import './header.css'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Logo from '../../../Assets/Img/Logo.png'
 import { auth } from '../../../firebase/utils'
 
+const mapState = ({ user }) => ({
+    currentUser: user.currentUser
+})
+
 const Header = (props)  => {
 
-    const { currentUser } = props;
+    const { currentUser } = useSelector(mapState);
 
     return (
         <nav className="navbar bg-light ShrimpBanner dimmer">
@@ -61,8 +65,4 @@ Header.defaultProps = {
     currentUser: null
 }
 
-const mapStateToProps = ({ user }) => ({
-    currentUser: user.currentUser
-})
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

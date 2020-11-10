@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { auth, handleUserProfile } from './firebase/utils';
-import { setCurrentUser } from './redux/User/user.actions'
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser } from './redux/User/user.actions';
 
 //HOC
 import WithAuth from './HOC/withAuth';
@@ -16,12 +16,11 @@ import Login from './Components/Pages/Login/Login';
 import Register from './Components/Pages/Registration/Register';
 import Recovery from './Components/Pages/Recovery/Recovery';
 import Dashboard from './Components/Pages/Dashboard/Dashboard';
-import withAuth from './HOC/withAuth';
 
 
 const App = (props) => {
 
-  const { setCurrentUser, currentUser } = props;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     
@@ -29,13 +28,13 @@ const App = (props) => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot( snapshot => {
-          setCurrentUser({
+          dispatch(setCurrentUser({
               id: snapshot.id,
               ...snapshot.data()
-          })
+          }))
         })
       }
-      setCurrentUser(userAuth)
+      dispatch(setCurrentUser(userAuth))
     });
 
     return () => {
@@ -82,12 +81,4 @@ const App = (props) => {
     );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
-})
-
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

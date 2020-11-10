@@ -1,47 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import './resetpassword.css'
 
+import { useDispatch, useSelector } from 'react-redux' 
+import { resetPassword, resetAllAuthForms } from '../../../redux/User/user.actions'
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import FormInput from '../Forms/FormInput/FormInput';
 import Button from '../Forms/Button/Button';
 
-import { auth } from '../../../firebase/utils';
-
+const mapState = ({ user}) => ({
+    resetPasswordSuccess: user.resetPasswordSuccess,
+    resetPasswordError: user.resetPasswordError
+})
 
 const ResetPassword = (props) => {
-
+    const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('')
     const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        if (resetPasswordSuccess) {
+            dispatch(resetAllAuthForms());
+            props.history.push('/login');
+        }
+    }, [resetPasswordSuccess])
+
+    useEffect(() => {
+        if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0 ) {
+            setErrors(resetPasswordError);
+        }
+    })
 
     const reset = () => {
         setEmail('');
         setErrors([]);
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
+        dispatch(resetPassword({ email }));
 
-        const config = {
-            url: 'http://localhost:3000/login'
-        }
-
-        try {
-            
-            await auth.sendPasswordResetEmail( email, config)
-                .then( () => {
-                    props.history.push("./login");
-                })
-                .catch(() => {
-                    const err = ['Email not found, Please try again.'];
-                    setErrors(err);
-                })
-
-        } catch(err) {
-            //console.log(err);
-        }
     }
-
 
         const configAuthWrapper = {
             headline: 'Reset Password'
