@@ -17,11 +17,28 @@ h2 {
     border: 1px solid;
 }
 
-.SigninBtn {
+.formInput {
+    font-size: 1.3rem;
+    margin: 0.3rem auto;
+    line-height: 2;
+    font-weight: 400;
+    width: 75%;
+    text-align: left;
+    padding: 10px auto;
+    outline: none;
+}
 
+.RegisterBtn {
     margin: 1rem auto;
     width: 75%;
     display: block;
     padding: 0;
     text-align: center;
+
+}
+
+.errMsg {
+    
+    text-align: center;
+    color: red;
 }

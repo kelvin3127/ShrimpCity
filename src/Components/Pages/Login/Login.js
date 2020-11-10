@@ -3,9 +3,7 @@ import SignIn from '../../Widgets/SignIn/SignIn'
 
 const Login = (props) => {
     return (
-        <div>
-            <SignIn />
-        </div>
+        <SignIn />
     )
 }
 

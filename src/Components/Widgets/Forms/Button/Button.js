@@ -3,7 +3,7 @@ import './button.css'
 
 const Button = ({ children, ...otherProps }) => {
     return (
-        <button className="btn btn-primary m-3" {...otherProps}>
+        <button {...otherProps}>
             {children}
         </button>
     )

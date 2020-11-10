@@ -12,6 +12,8 @@ const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ promt: "select_account"});
 export const signInWithGoogle = () => auth.signInWithPopup(GoogleProvider)
 
+
+// Takes userAuth and checks if it exist, if not make a new user to register it and return the userref to store info
 export const handleUserProfile = async (userAuth, additionalData) => {
     if (!userAuth) return;
     const { uid } = userAuth;
