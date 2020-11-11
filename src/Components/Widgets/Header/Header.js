@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { signOutUserStart } from '../../../redux/User/user.actions'
 import { Link } from 'react-router-dom';
 import Logo from '../../../Assets/Img/Logo.png'
+import AdminToolbar from '../AdminToolbar/AdminToolbar';
 
 const mapState = ({ user }) => ({
     currentUser: user.currentUser
@@ -43,6 +44,9 @@ const Header = (props)  => {
                                 Logout
                             </span>
                         </a>
+                        <div className="m-3 navText">
+                            <AdminToolbar />
+                        </div>
                     </div>
                 )}
 
