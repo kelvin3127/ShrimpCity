@@ -11,6 +11,7 @@ import WithAdminAuth from './HOC/withAdminAuth';
 
 //Layouts
 import MainLayout from './Components/Layouts/MainLayout';
+import AdminLayout from './Components/Layouts/AdminLayout';
 
 //Pages
 import Homepage from './Components/Pages/Homepage/Homepage';
@@ -59,9 +60,9 @@ const App = (props) => {
             <Route path="/admin" 
               render={() => (
               <WithAdminAuth>
-                <MainLayout>
+                <AdminLayout>
                   <Admin />
-                </MainLayout>
+                </AdminLayout>
               </WithAdminAuth>
             )}/>
             <Route path="/dashboard" 
